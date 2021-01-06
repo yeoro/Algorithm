@@ -1,4 +1,4 @@
-package BOJ_1000_AB;
+package BOJ_01000_AB;
 
 import java.util.Scanner;
 
