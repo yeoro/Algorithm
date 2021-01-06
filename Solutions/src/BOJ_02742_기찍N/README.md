@@ -1,7 +1,7 @@
-# <img src="https://static.solved.ac/tier_small/3.svg" width=30> 2742: 기찍 N
+# <img src="https://static.solved.ac/tier_small/3.svg" width=30> 2741: N 찍기
 
 ### 문제 링크
-> https://www.acmicpc.net/problem/2742
+> https://www.acmicpc.net/problem/2741
 
 ### 알고리즘 분류
 >- 구현
