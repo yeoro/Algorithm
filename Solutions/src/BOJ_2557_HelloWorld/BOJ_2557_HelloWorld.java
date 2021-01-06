@@ -7,5 +7,4 @@ public class BOJ_2557_HelloWorld {
 		System.out.println("Hello World!");
 
 	}
-
 }

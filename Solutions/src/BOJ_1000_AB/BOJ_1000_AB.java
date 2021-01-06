@@ -13,5 +13,4 @@ public class BOJ_1000_AB {
 		
 		System.out.println(A+B);
 	}
-
 }
