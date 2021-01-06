@@ -1,4 +1,4 @@
-# <img src="https://static.solved.ac/tier_small/3.svg" width=30> 10953: A + B - 7
+# <img src="https://static.solved.ac/tier_small/3.svg" width=30> 11021: A + B - 7
 
 ### 문제 링크
 > https://www.acmicpc.net/problem/11021
