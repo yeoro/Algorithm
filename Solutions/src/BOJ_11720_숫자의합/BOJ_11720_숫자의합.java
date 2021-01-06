@@ -23,5 +23,4 @@ public class BOJ_11720_숫자의합 {
 		
 		sc.close();
 	}
-
 }
