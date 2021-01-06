@@ -1,6 +1,6 @@
 package BOJ_2557_HelloWorld;
 
-public class Main {
+public class BOJ_2557_HelloWorld {
 
 	public static void main(String[] args) {
 		
