@@ -13,4 +13,4 @@
 ### 해결
 > 1. ArrayList 이용
 > 2. ArrayList.contains 이용하여 중복 체크
-> 3. Collections.sort 이용하여 정렬
+> 3. Collections.sort 이용하여 정렬 
