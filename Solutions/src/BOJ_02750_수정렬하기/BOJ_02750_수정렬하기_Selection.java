@@ -1,8 +1,8 @@
-package BOJ_02751_수정렬하기2;
+package BOJ_02750_수정렬하기;
 
 import java.util.Scanner;
 
-public class BOJ_02751_수정렬하기2_Selection {
+public class BOJ_02750_수정렬하기_Selection {
 
 	public static void main(String[] args) {
 
