@@ -2,7 +2,7 @@ package BOJ_02751_수정렬하기2;
 
 import java.util.Scanner;
 
-public class BOJ_02751_수정렬하기2 {
+public class BOJ_02751_수정렬하기2_Selection {
 
 	public static void main(String[] args) {
 
@@ -10,19 +10,24 @@ public class BOJ_02751_수정렬하기2 {
 		
 		int N = sc.nextInt();
 		int[] nums = new int[N];
-		int size = N-1;
 		
 		for(int i = 0; i < N; i++) {
 			nums[i] = sc.nextInt();
 		}
 		
-		for(int i = 0; i < size; i++) {
-			for(int j = 0; j < size; j++) {
-				if(nums[j] > nums[j+1]) {
-					int temp = nums[j];
-					nums[j] = nums[j+1];
-					nums[j+1] = temp;					
+		for(int i = 0; i < nums.length; i++) {
+			int minIdx = i;
+			
+			for(int j = i; j < nums.length; j++) {
+				if(nums[minIdx] > nums[j]) {
+					minIdx = j;
 				}
+			}
+			
+			if(minIdx != i) {
+				int temp = nums[minIdx];
+				nums[minIdx] = nums[i];
+				nums[i] = temp;
 			}
 		}
 		
