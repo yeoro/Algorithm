@@ -14,3 +14,6 @@
 > 2. ArrayList.contains 이용하여 중복 체크
 > 3. Collections.sort 이용하여 정렬 
 > 4. StringBuffer 로 출력
+>- Scanner + StringBuffer = 2476 ms
+>- BufferedReader + BufferedWriter = 1352 ms
+>- BufferedReader + StringBuffer = 1332 ms
