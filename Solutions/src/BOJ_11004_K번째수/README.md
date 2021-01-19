@@ -1,4 +1,4 @@
-# <img src="https://static.solved.ac/tier_small/7.svg" width=30> 11004: K번째 수
+# <img src="https://static.solved.ac/tier_small/6.svg" width=30> 11004: K번째 수
 
 ### 문제 링크
 > https://www.acmicpc.net/problem/11004
