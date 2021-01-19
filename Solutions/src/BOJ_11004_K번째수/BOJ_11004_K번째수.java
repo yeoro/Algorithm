@@ -1,11 +1,11 @@
-package BOJ_11652_카드;
+package BOJ_11004_K번째수;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Scanner;
 
-public class BOJ_11652_카드 {
+public class BOJ_11004_K번째수 {
 
 	public static void main(String[] args) {
 		
