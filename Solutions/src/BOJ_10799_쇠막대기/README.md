@@ -1,4 +1,4 @@
-# <img src="https://static.solved.ac/tier_small/7.svg" width=30> 10799: 쇠막대기
+# <img src="https://static.solved.ac/tier_small/8.svg" width=30> 10799: 쇠막대기
 
 ### 문제 링크
 > https://www.acmicpc.net/problem/10799
