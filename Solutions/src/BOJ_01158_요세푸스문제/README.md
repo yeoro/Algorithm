@@ -1,4 +1,4 @@
-# <img src="https://static.solved.ac/tier_small/8.svg" width=30> 1158: 요세푸스 문제
+# <img src="https://static.solved.ac/tier_small/6.svg" width=30> 1158: 요세푸스 문제
 
 ### 문제 링크
 
