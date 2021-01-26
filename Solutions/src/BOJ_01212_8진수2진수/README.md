@@ -1,4 +1,4 @@
-# <img src="https://static.solved.ac/tier_small/4.svg" width=30> 1212: 8진수 2진수
+# <img src="https://static.solved.ac/tier_small/2.svg" width=30> 1212: 8진수 2진수
 
 ### 문제 링크
 
