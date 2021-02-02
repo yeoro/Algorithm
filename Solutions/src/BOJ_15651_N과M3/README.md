@@ -14,3 +14,4 @@
 ### 해결
 
 > 1. 방문체크 없이 순열 생성
+> 2. **BufferedReader**, **BufferedWriter** 사용
