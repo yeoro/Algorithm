@@ -47,7 +47,7 @@ public class BOJ_15666_N°úM12 {
 			StringBuffer sb = new StringBuffer();
 			
 			for(int i = 1; i <= M; i++) {
-				sb.append(output[i]);
+				sb.append(output[i] + " ");
 			}
 			
 			if(hs.contains(sb.toString())) {
