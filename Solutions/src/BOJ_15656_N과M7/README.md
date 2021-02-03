@@ -13,5 +13,5 @@
 
 ### 해결
 
-> 1. 다음 수가 큰 경우에만 순열 생성
+> 1. 그냥 순열 생성
 > 2. **BufferedReader**, **BufferedWriter** 사용
