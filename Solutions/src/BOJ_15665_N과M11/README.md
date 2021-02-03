@@ -13,6 +13,5 @@
 
 ### 해결
 
-> 1. 다음 수가 큰 경우에만 순열 생성
-> 2. 순열이 생성될 때마다 **HashSet**에 있는지 판단 후 없으면 넣고 출력, 있으면 return 
-> 3. **BufferedReader**, **BufferedWriter** 사용
+> 1. 순열이 생성될 때마다 **HashSet**에 있는지 판단 후 없으면 넣고 출력, 있으면 return 
+> 2. **BufferedReader**, **BufferedWriter** 사용
