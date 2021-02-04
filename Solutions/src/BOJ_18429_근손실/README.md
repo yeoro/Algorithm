@@ -1,8 +1,8 @@
-# <img src="https://static.solved.ac/tier_small/8.svg" width=30> 18429: 근손실
+# <img src="https://static.solved.ac/tier_small/9.svg" width=30> 1182: 부분수열의 합
 
 ### 문제 링크
 
-> https://www.acmicpc.net/problem/18429
+> https://www.acmicpc.net/problem/1182
 
 ### 알고리즘 분류
 >- 백트래킹
@@ -10,10 +10,9 @@
 
 ### 풀이 시간
 
-> - ⏱ 14분
+> - ⏱ 30분+
 
 ### 해결
-
-> 1. 주어진 운동 키트 번호를 선택할 때 중량을 계산하고 500 이상인 경우에만 순열 생성
-> 2. 순열 생성이 완료되면 카운트 증가
-> 3. **BufferedReader**, **BufferedWriter** 사용
+> 1. 수열에서 항의 일부를 순서있게 나열한 수열을 부분수열이라 한다.
+> 1. 부분수열은 수열의 순서를 지켜야 한다는 것을 간과하고 단순히 순열을 생성하며 답을 찾으려고 했다..
+> 2. **배열**이라는 선형구조에 수열을 담을 것이기 때문에, **브루트포스** 중에서 **순차탐색**을 이용하였다.
