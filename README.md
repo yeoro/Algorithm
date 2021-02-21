@@ -1,3 +1,2 @@
-# Algorithm 
-!  
+알고 
  
