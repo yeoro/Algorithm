@@ -1,2 +1,2 @@
-알고 잘하고 싶다
+https://www.acmicpc.net/user/yeoro0
  
