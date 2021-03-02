@@ -58,7 +58,7 @@ public class BOJ_02206_벽부수고이동하기 {
 				int ny = p.y + dy[i];
 				
 				// 배열 범위 안 & 아직 방문하지 않은 곳 (방문배열을 무한으로 초기화 했기 때문에 방문하지 않은 곳의 값이 p의 방문배열 값보다 커야함)
-				if(isIn(nx, ny) && v[nx][ny] > v[p.x][p.y]) {
+				if(isIn(nx, ny) && v[nx][ny] > p.status) {
 					if(map[nx][ny] == 0) {
 						v[nx][ny] = p.status;
 						q.add(new Path(nx, ny, p.dis+1, p.status));
