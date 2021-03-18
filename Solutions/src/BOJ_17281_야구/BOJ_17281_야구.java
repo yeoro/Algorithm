@@ -1,10 +1,10 @@
-package BOJ_17281_¾ß±¸;
+package BOJ_17281_ì•¼êµ¬;
 
 import java.io.*;
 import java.util.*;
 
-public class BOJ_17281_¾ß±¸ {
-	
+public class BOJ_17281_ì•¼êµ¬ {
+	 
 	static int[][] inning;
 	static int[] lineup, base;
 	static boolean[] v;
@@ -69,10 +69,10 @@ public class BOJ_17281_¾ß±¸ {
 				int score = inning[i][curPlayer];
 				
 				switch(score) {
-				case 0: // ¾Æ¿ô
+				case 0: // ì•„ì›ƒ
 					out++;
 					break;
-				case 1: // ¾ÈÅ¸
+				case 1: // ì•ˆíƒ€
 					for(int k = 2; k >= 0; k--) {
 						if(base[k] == 1) {
 							if(k == 2) {
@@ -85,7 +85,7 @@ public class BOJ_17281_¾ß±¸ {
 					}
 					base[0] = 1;
 					break;
-				case 2: // 2·çÅ¸
+				case 2: // 2ë£¨íƒ€
 					for(int k = 2; k >= 0; k--) {
 						if(base[k] == 1) {
 							if(k > 0) {
@@ -98,7 +98,7 @@ public class BOJ_17281_¾ß±¸ {
 					}
 					base[1] = 1;
 					break;
-				case 3: // 3·çÅ¸
+				case 3: // 3ë£¨íƒ€
 					for(int k = 2; k >= 0; k--) {
 						if(base[k] == 1) {
 							sum++;
@@ -107,7 +107,7 @@ public class BOJ_17281_¾ß±¸ {
 					}
 					base[2] = 1;
 					break;
-				case 4: // 4·çÅ¸
+				case 4: // 4ë£¨íƒ€
 					for(int k = 2; k >= 0; k--) {
 						if(base[k] == 1) {
 							sum++;
@@ -118,12 +118,12 @@ public class BOJ_17281_¾ß±¸ {
 					break;
 				}
 				
-				// 3¾Æ¿ôÀÌ ¾Æ´Ñµ¥ ¸Ç ¸¶Áö¸· Å¸ÀÚ±îÁö Ä£ °æ¿ì ¸Ç ¾ÕÅ¸ÀÚ·Î ¼ø¼­ º¯°æ
+				// 3ì•„ì›ƒì´ ì•„ë‹Œë° ë§¨ ë§ˆì§€ë§‰ íƒ€ìžê¹Œì§€ ì¹œ ê²½ìš° ë§¨ ì•žíƒ€ìžë¡œ ìˆœì„œ ë³€ê²½
 				if(out != 3 && j == 9) {
 					j = 0;
 				}
 				
-				// 3¾Æ¿ôÀÎ °æ¿ì ´ÙÀ½ ÀÌ´×ÀÇ Ã¹¹øÂ° Å¸ÀÚ ¼³Á¤
+				// 3ì•„ì›ƒì¸ ê²½ìš° ë‹¤ìŒ ì´ë‹ì˜ ì²«ë²ˆì§¸ íƒ€ìž ì„¤ì •
 				if(out == 3) {
 					if(j == 9) {
 						j = 0;
