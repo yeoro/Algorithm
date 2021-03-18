@@ -69,10 +69,10 @@ public class BOJ_17281_야구 {
 				int score = inning[i][curPlayer];
 				
 				switch(score) {
-				case 0: // 아웃
+				case 0: // �븘�썐
 					out++;
 					break;
-				case 1: // 안타
+				case 1: // �븞��
 					for(int k = 2; k >= 0; k--) {
 						if(base[k] == 1) {
 							if(k == 2) {
@@ -85,7 +85,7 @@ public class BOJ_17281_야구 {
 					}
 					base[0] = 1;
 					break;
-				case 2: // 2루타
+				case 2: // 2猷⑦�
 					for(int k = 2; k >= 0; k--) {
 						if(base[k] == 1) {
 							if(k > 0) {
@@ -98,7 +98,7 @@ public class BOJ_17281_야구 {
 					}
 					base[1] = 1;
 					break;
-				case 3: // 3루타
+				case 3: // 3猷⑦�
 					for(int k = 2; k >= 0; k--) {
 						if(base[k] == 1) {
 							sum++;
@@ -107,7 +107,7 @@ public class BOJ_17281_야구 {
 					}
 					base[2] = 1;
 					break;
-				case 4: // 4루타
+				case 4: // 4猷⑦�
 					for(int k = 2; k >= 0; k--) {
 						if(base[k] == 1) {
 							sum++;
@@ -118,12 +118,12 @@ public class BOJ_17281_야구 {
 					break;
 				}
 				
-				// 3아웃이 아닌데 맨 마지막 타자까지 친 경우 맨 앞타자로 순서 변경
+				// 3�븘�썐�씠 �븘�땶�뜲 留� 留덉�留� ���옄源뚯� 移� 寃쎌슦 留� �븵���옄濡� �닚�꽌 蹂�寃�
 				if(out != 3 && j == 9) {
 					j = 0;
 				}
 				
-				// 3아웃인 경우 다음 이닝의 첫번째 타자 설정
+				// 3�븘�썐�씤 寃쎌슦 �떎�쓬 �씠�떇�쓽 泥ル쾲吏� ���옄 �꽕�젙
 				if(out == 3) {
 					if(j == 9) {
 						j = 0;
