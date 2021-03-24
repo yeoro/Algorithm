@@ -1,4 +1,4 @@
-# <img src="https://static.solved.ac/tier_small/11.svg" width=30> 03190: 뱀 
+# <img src="https://static.solved.ac/tier_small/11.svg" width=30> 3190: 뱀 
 
 ### 문제 링크
 > https://www.acmicpc.net/problem/3190
