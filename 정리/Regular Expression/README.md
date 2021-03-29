@@ -1,5 +1,5 @@
 # **정규표현식 (Regular Expression, regex)**
-![regex](https://www.google.com/url?sa=i&url=https%3A%2F%2Fdev.to%2Fcarter%2Fregular-expressions-regex-in-javascript-4m9h&psig=AOvVaw07EKymDBKzRrkwthCUBqDG&ust=1617098104232000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCKCY5Ime1e8CFQAAAAAdAAAAABAJ)
+![regex](https://miro.medium.com/max/2560/0*qASU92GfMj2HCTMg.jpg)
 ## **정의**
 - 컴퓨터 과학의 정규언어로부터 유래한 것으로 특정한 규칙을 가진 문자열의 집합을 표현하기 위해 쓰이는 형식 언어
 - 전화번호, 주민번호, 이메일 등 정해져있는 형식이 있고 사용자가 그 형식대로 입력했는지 검증을 하는 경우 종종 사용
