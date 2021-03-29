@@ -1,14 +1,13 @@
-# <img src="https://static.solved.ac/tier_small/31.svg" width=30> 00000: 
+# <img src="https://kakao.com/favicon.ico" width=30> 신규 아이디 추천
 
 ### 문제 링크
-> https://www.acmicpc.net/problem/
+> https://programmers.co.kr/learn/courses/30/lessons/72410
 
 ### 알고리즘 분류
->- 
+>- 문자열
 
 ### 풀이 시간
->- ⏱ 분
+>- ⏱ 40분
 
 ### 해결
-> ![bad](../../../Img/bad.png)  
-> ![good](../../../Img/good.png)
+>- 정규표현식 이용
