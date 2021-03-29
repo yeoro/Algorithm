@@ -18,15 +18,20 @@ import java.util.regex.Pattern;
 public class PG_2021KAKAO_신규아이디추천 {
 	
 	static String new_id = "...!@BaT#*..y.abcdefghijklm";
-	static String answer = "";
 	
 	public static void main(String[] args) {
+		// 1단계 new_id의 모든 대문자를 대응되는 소문자로 치환합니다.
+		String answer = new_id.toLowerCase();
 		
-		step1();
-	}
-	
-	private static void step1() {
-		Pattern p = Pattern.compile("[A-Z]");
+		// 2단계 new_id에서 알파벳 소문자, 숫자, 빼기(-), 밑줄(_), 마침표(.)를 제외한 모든 문자를 제거합니다.
+		answer = answer.replaceAll("[^-_.0-9a-zA-Z]", "")
+				
+		// 3단계 new_id에서 마침표(.)가 2번 이상 연속된 부분을 하나의 마침표(.)로 치환합니다.
+					   .replaceAll(answer, answer);
+					   
+		
+		
+		System.out.println(answer);
 	}
 }
 
