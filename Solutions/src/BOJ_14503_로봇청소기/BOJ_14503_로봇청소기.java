@@ -29,11 +29,17 @@ public class BOJ_14503_로봇청소기 {
 		for(int i = 0; i < N; i++) {
 			st = new StringTokenizer(br.readLine(), " ");
 			for(int j = 0; j < M; j++) {
-				map[i][j] = Integer.parseInt(st.nextToken());
+				int temp = Integer.parseInt(st.nextToken());
+				
+				if(temp == 1) {
+					map[i][j] = 0;
+				} else if(temp == 0) {
+					map[i][j] = -1;
+				}
 			}
 		}
 		
-		map[r][c] = 2;
+		map[r][c] = 1;
 		
 		clean(r, c, d, 1);
 		
@@ -45,9 +51,6 @@ public class BOJ_14503_로봇청소기 {
 //		if(cnt == 30) {
 //			return;
 //		}
-		
-		// 현재 위치 청소
-		map[x][y] = 2;
 		
 		int curDir = dir;
 		int curCnt = cnt;
@@ -96,7 +99,8 @@ public class BOJ_14503_로봇청소기 {
 			
 			
 			// 청소할 공간을 찾으면 다음 청소 진행
-			if(isIn(nx, ny) && map[nx][ny] == 0) {
+			if(isIn(nx, ny) && map[nx][ny] == -1) {
+				map[nx][ny] = curCnt+1;
 				clean(nx, ny, curDir, curCnt+1);
 //				System.out.println("청소 (" + nx + ", " + ny + ")");
 				return;
@@ -122,15 +126,14 @@ public class BOJ_14503_로봇청소기 {
 //						System.out.println("후진 (" + nx + ", " + ny + ")");
 						clean(nx, ny, curDir, curCnt);
 						break;
-					} else if(!isIn(nx, ny) && map[nx][ny] != 0){
-						res = cnt;
+					} else if(!isIn(nx, ny) && map[nx][ny] != -1){
+						res = curCnt;
 						return;
 					}
 				}
 			}
 		}
 	}
-	
 	
 	private static boolean isIn(int x, int y) {
 		return x > 0 && x < N-1 && y > 0 && y < M-1;
