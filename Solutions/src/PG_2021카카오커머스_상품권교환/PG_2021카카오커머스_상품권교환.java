@@ -5,32 +5,33 @@ import java.util.*;
 
 public class PG_2021카카오커머스_상품권교환 {
 	
-	static int[] gift_cards = {5, 5, 5, 5, 5};
-	static int[] wants = {4, 4, 4, 4, 4};
-	
+	static int[] gift_cards = {4, 5, 3, 2, 1};
+	static int[] wants = {2, 4, 4, 5, 1};
 	
 	public static void main(String[] args) {
 		int answer = 0;
 		boolean[] v = new boolean[gift_cards.length];
 		
 		for(int i = 0, size = gift_cards.length; i < size; i++) {
-			int curCard = gift_cards[i];
-			int wantCard = wants[i];
-			
-			// 원하는 카드가 아닐 경우 교환
-			if(curCard != wantCard) {
-				for(int j = 0; j < size; j++) {
-					if(!v[j] && i != j && wantCard == gift_cards[j])  {
-						int temp = gift_cards[i];
-						gift_cards[i] = gift_cards[j];
-						gift_cards[j] = temp;
-						
-						v[i] = true;
-					}
-				}
-			} else if(curCard == wantCard) {
+			// 갖고 있는 카드가 원하는 카드라면 넘어감
+			if(gift_cards[i] == wants[i]) {
 				v[i] = true;
 				continue;
+			}
+			
+			// 원하는 카드를 받지 못한 사람만 진행
+			for(int j = 0; j < size; j++) {
+				if(!v[j] && i != j && wants[i] == gift_cards[j])  {
+					int temp = gift_cards[i];
+					gift_cards[i] = gift_cards[j];
+					gift_cards[j] = temp;
+
+					if(gift_cards[j] == wants[j]) {
+						v[j] = true;
+					}
+
+					v[i] = true;
+				}
 			}
 		}
 		
