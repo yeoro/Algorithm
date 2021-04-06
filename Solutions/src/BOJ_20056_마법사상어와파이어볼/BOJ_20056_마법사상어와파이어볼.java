@@ -5,11 +5,10 @@ import java.util.*;
 
 public class BOJ_20056_마법사상어와파이어볼 {
 	
-	static boolean[][] v;
 	static ArrayList<Fireball>[][] fbList;
 	static int[] dx = {-1, -1, 0, 1, 1, 1, 0, -1}, dy = {0, 1, 1, 1, 0, -1, -1, -1};
-	static boolean curMove;
 	static int N, M, K, res;
+	static Queue<Fireball> q = new LinkedList<Fireball>();
 	
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -36,7 +35,7 @@ public class BOJ_20056_마법사상어와파이어볼 {
 			int s = Integer.parseInt(st.nextToken());
 			int d = Integer.parseInt(st.nextToken());
 			
-			Fireball input = new Fireball(x, y, m, s, d, !curMove);
+			Fireball input = new Fireball(x, y, m, s, d);
 			
 			fbList[x][y].add(input);
 		}
@@ -55,9 +54,6 @@ public class BOJ_20056_마법사상어와파이어볼 {
 			
 			// 파이어볼이 2개 이상 존재하는 칸 나누기 작업
 			divFireball();
-			
-			// 플래그 변수를 바꿔 새로운 이동이 시작됨을 나타냄
-			curMove = !curMove;
 		}
 		
 		// 남아있는 파이어볼 질량 계산
@@ -65,7 +61,7 @@ public class BOJ_20056_마법사상어와파이어볼 {
 	}
 	
 	private static void moveFireball() {
-		v = new boolean[N][N];
+		ArrayList<Fireball> temp = new ArrayList<Fireball>();
 		
 		for(int i = 0; i < N; i++) {
 			for(int j = 0; j < N; j++) {
@@ -78,31 +74,21 @@ public class BOJ_20056_마법사상어와파이어볼 {
 						int m = fb.m;
 						int s = fb.s;
 						int d = fb.d;
-						boolean isMoved = fb.isMoved;
 						
-						// 이번 이동에서 움직였으면 건너뜀
-						if(isMoved == curMove) {
-							continue;
-						}
 						
-//						System.out.println("현재: " + fb.toString() + " " + k);
+						System.out.println(nx + " " + ny);
+						Fireball mv = new Fireball(nx, ny, m, s, d);
 						
-						int nx = (x + dx[d] * s) % N;
-						int ny = (y + dy[d] * s) % N;
-						
-						if(nx < 0) nx += N;
-						if(ny < 0) ny += N;
-						
-						Fireball mv = new Fireball(nx, ny, m, s, d, curMove);
-						
-						// 움직일 위치로 이동
 						fbList[i][j].remove(k--);
-						fbList[nx][ny].add(mv);
-						
-//						System.out.println("이동: " + mv.toString() + " " + k);
+						temp.add(mv);
 					}
 				}
 			}
+		}
+		
+		// 파이어볼 이동
+		for(Fireball fb : temp) {
+			fbList[fb.x][fb.y].add(fb);
 		}
 	}
 	
@@ -133,21 +119,21 @@ public class BOJ_20056_마법사상어와파이어볼 {
 //						System.out.println("합쳐짐: " + fb.toString());
 					}
 					
-					fbList[i][j].clear();
-					
 					mTotal /= 5;
 					sTotal /= size;
-					int d;
 					
-					for(int k = 0; k < 4; k++) {
-						// 방향이 모두 짝수, 홀수이면 (0, 2, 4, 6), 아니면 (1, 3, 5, 7)
-						if(even != odd) {
-							d = 0;
-						} else {
-							d = 1;
-						}
+					fbList[i][j].clear();
+
+					// 방향이 모두 짝수, 홀수이면 (0, 2, 4, 6), 아니면 (1, 3, 5, 7)
+					int d;
+					if(even != odd) {
+						d = 0;
+					} else {
+						d = 1;
+					}
 						
-						Fireball fb = new Fireball(i, j, mTotal, sTotal, d+=2*k, curMove);
+					for(int k = 0; k < 4; k++) {
+						Fireball fb = new Fireball(i, j, mTotal, sTotal, d+=2*k);
 						
 						fbList[i][j].add(fb);
 						
@@ -169,18 +155,6 @@ public class BOJ_20056_마법사상어와파이어볼 {
 			}
 		}
 	}
-	
-	private static int modifyIdx(int n) {
-		int m = 0;
-		
-		if(n > N) {
-			m = n % N;
-		} else if (n < 0) {
-			m = N - Math.abs(n);
-		}
-		
-		return m;
-	}
 }
 
 class Node {
@@ -194,20 +168,18 @@ class Node {
 
 class Fireball {
 	int x, y, m, s, d;
-	boolean isMoved;
 	
-	public Fireball(int x, int y, int m, int s, int d, boolean isMoved) {
+	public Fireball(int x, int y, int m, int s, int d) {
 		this.x = x;
 		this.y = y;
 		this.m = m;
 		this.s = s;
 		this.d = d;
-		this.isMoved = isMoved;
 	}
 
 	@Override
 	public String toString() {
-		return "Fireball [x=" + x + ", y=" + y + ", m=" + m + ", s=" + s + ", d=" + d + ", isMoved=" + isMoved + "]";
+		return "Fireball [x=" + x + ", y=" + y + ", m=" + m + ", s=" + s + ", d=" + d + "]";
 	}
 }
 
