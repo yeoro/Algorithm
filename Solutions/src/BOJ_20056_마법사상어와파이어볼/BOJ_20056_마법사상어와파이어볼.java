@@ -5,12 +5,11 @@ import java.util.*;
 
 public class BOJ_20056_마법사상어와파이어볼 {
 	
-	static int[][] map;
 	static boolean[][] v;
 	static ArrayList<Fireball>[][] fbList;
 	static int[] dx = {-1, -1, 0, 1, 1, 1, 0, -1}, dy = {0, 1, 1, 1, 0, -1, -1, -1};
+	static boolean curMove;
 	static int N, M, K, res;
-	static Queue<Fireball> q = new LinkedList<Fireball>();
 	
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -20,7 +19,6 @@ public class BOJ_20056_마법사상어와파이어볼 {
 		M = Integer.parseInt(st.nextToken());
 		K = Integer.parseInt(st.nextToken());
 		
-		map = new int[N][N];
 		fbList = new ArrayList[N][N];
 		
 		for(int i = 0; i < N; i++) {
@@ -38,163 +36,146 @@ public class BOJ_20056_마법사상어와파이어볼 {
 			int s = Integer.parseInt(st.nextToken());
 			int d = Integer.parseInt(st.nextToken());
 			
-			Fireball input = new Fireball(x, y, m, s, d);
+			Fireball input = new Fireball(x, y, m, s, d, !curMove);
 			
 			fbList[x][y].add(input);
-//			map[x][y]++;
-			q.add(input);
 		}
 		
-		bfs();
+		solve();
 		
 		System.out.println(res);
 		
 		br.close();
 	}
 	
-	private static void bfs() {
-		for(int k = 0; k < K; k++) {
-			v = new boolean[N][N];
-			ArrayList<Node> temp = new ArrayList<Node>();
-			
+	private static void solve() {
+		while(K-- > 0) {
 			// 파이어볼 이동
-			for(int i = 0, size = q.size(); i < size; i++) {
-				Fireball fb = q.poll();
-				
-				int x = fb.x;
-				int y = fb.y;
-				int m = fb.m;
-				int s = fb.s;
-				int d = fb.d;
-				
-				if(m == 0) {
-					continue;
-				}
-				
-				System.out.println("현재: " + fb.toString() + " " + k);
-				
-				int nx = 0;
-				int ny = 0;
-				int px = x;
-				int py = y;
-				
-				for (int a = 0; a < s; a++) {
-			         nx = px + dx[d];
-			         ny = py + dy[d];
-			         if (nx == -1) nx = N-1;
-			         if (ny == -1) ny = N-1;
-			         if (nx >= N) nx = 0;
-			         if (ny >= N) ny = 0;
-			         px = nx;
-			         py = ny;
-			      }
-				
-//				int nx = modifyIdx(x + dx[d]*(s % N));
-//				int ny = modifyIdx(y + dy[d]*(s % N));
-				
-//				  int nr = f.r + rArr[f.d] * (f.s % n);
-//                int nc = f.c + cArr[f.d] * (f.s % n);
-//                if(nr > 0) nr %= n;
-//                if(nc > 0) nc %= n;
-//                if(nr < 0) nr = n - Math.abs(nr);
-//                if(nc < 0) nc = n - Math.abs(nc);
-
-				Fireball move = new Fireball(nx, ny, m, s, d);
-
-				// 이전 칸에서 현재 칸으로 파이어볼 이동
-//				map[x][y]--;
-				fbList[x][y].remove(fb);
-				
-				// 현재 칸에 존재하는 파이어볼 갯수 증가
-//				map[nx][ny]++;
-				fbList[nx][ny].add(move);
-				
-				System.out.println("이전 칸 개수: " + fbList[x][y].size());
-				System.out.println("이동: " + move.toString());
-				System.out.println("현재 칸 개수: " + fbList[nx][ny].size());
-//				System.out.println(map[nx][ny] + " " + nx + " " + ny);
-
-				// 현재 칸에 존재하는 파이어볼을 나누는 작업을 하거나 작업 없이 큐에 집어넣기 위해 위치 저장
-				if(!v[nx][ny]) {
-					temp.add(new Node(nx, ny));
-					v[nx][ny] = true;
-				}
-			}
+			moveFireball();
 			
-			// 파이어볼 큐에 넣기
-			if(temp.size() > 0) {
-				for(Node n : temp) {
-					int x = n.x;
-					int y = n.y;
-					int cnt = fbList[x][y].size();
-					
-					if(cnt >= 2) { // 현재 칸에 파이어볼이 2개 이상 존재한다면 나누고 큐에 넣음
+			// 파이어볼이 2개 이상 존재하는 칸 나누기 작업
+			divFireball();
+			
+			// 플래그 변수를 바꿔 새로운 이동이 시작됨을 나타냄
+			curMove = !curMove;
+		}
+		
+		// 남아있는 파이어볼 질량 계산
+		calM();
+	}
+	
+	private static void moveFireball() {
+		v = new boolean[N][N];
+		
+		for(int i = 0; i < N; i++) {
+			for(int j = 0; j < N; j++) {
+				if(fbList[i][j].size() > 0) {
+					for(int k = 0; k < fbList[i][j].size(); k++) {
+						Fireball fb = fbList[i][j].get(k);
 						
-						// 현재 칸에 있는 파이어볼 질량 총 합
-						int m = 0;
+						int x = fb.x;
+						int y = fb.y;
+						int m = fb.m;
+						int s = fb.s;
+						int d = fb.d;
+						boolean isMoved = fb.isMoved;
 						
-						// 현재 칸에 있는 파이어볼 속도 총 합
-						int s = 0;
-						
-						boolean even = false;
-						boolean odd = false;
-						
-						for(Fireball fb : fbList[x][y]) {
-							System.out.println("나누기: " + fb.toString());
-							m += fb.m;
-							s += fb.s;
-							
-							if(fb.d % 2 == 0) {
-								even = true;
-							} else {
-								odd = true;
-							}
+						// 이번 이동에서 움직였으면 건너뜀
+						if(isMoved == curMove) {
+							continue;
 						}
 						
-						// 합쳐진 파이어볼 질량의 합 / 5
-						m /= 5;
+//						System.out.println("현재: " + fb.toString() + " " + k);
 						
-						// 합쳐진 파이어볼 속력의 합 / 합쳐진 파이어볼 개수
-						s /= cnt;
+						int nx = (x + dx[d] * s) % N;
+						int ny = (y + dy[d] * s) % N;
 						
-						if(even != odd) { // 방향이 모두 짝수거나 홀수인 경우
-							for(int i = 0; i <= 6; i+=2) {
-								System.out.println("나눔1");
-								fbList[x][y].add(new Fireball(x, y, m, s, i));
-								q.offer(new Fireball(x, y, m, s, i));
-							}
-						} else {
-							for(int i = 1; i <= 7; i+=2) {
-								System.out.println("나눔2");
-								fbList[x][y].add(new Fireball(x, y, m, s, i));
-								q.offer(new Fireball(x, y, m, s, i));
-							}
-						}
+						if(nx < 0) nx += N;
+						if(ny < 0) ny += N;
 						
-					} else if(fbList[x][y].size() > 0) { // 현재 칸에 파이어볼이 1개 존재하면 나누는 작업 없이 큐에 넣음
-						q.offer(fbList[x][y].get(0));
+						Fireball mv = new Fireball(nx, ny, m, s, d, curMove);
+						
+						// 움직일 위치로 이동
+						fbList[i][j].remove(k--);
+						fbList[nx][ny].add(mv);
+						
+//						System.out.println("이동: " + mv.toString() + " " + k);
 					}
 				}
 			}
 		}
-		
-		for(int i = 0, size = q.size(); i < size; i++) {
-			Fireball fb = q.poll();
-
-			System.out.println("질량더함: " + fb.toString());
-			res += fb.m;
+	}
+	
+	private static void divFireball() {
+		for(int i = 0; i < N; i++) {
+			for(int j = 0; j < N; j++) {
+				int size = fbList[i][j].size();
+				
+				if(size >= 2) {
+					// 질량, 속도를 나누기 위한 변수
+					int mTotal = 0;
+					int sTotal = 0;
+					
+					// 방향을 정하기 위한 변수
+					boolean odd = false;
+					boolean even = false;
+					
+					for(Fireball fb : fbList[i][j]) {
+						mTotal += fb.m;
+						sTotal += fb.s;
+						
+						if(fb.d % 2 == 0) {
+							even = true;
+						} else {
+							odd = true;
+						}
+						
+//						System.out.println("합쳐짐: " + fb.toString());
+					}
+					
+					fbList[i][j].clear();
+					
+					mTotal /= 5;
+					sTotal /= size;
+					int d;
+					
+					for(int k = 0; k < 4; k++) {
+						// 방향이 모두 짝수, 홀수이면 (0, 2, 4, 6), 아니면 (1, 3, 5, 7)
+						if(even != odd) {
+							d = 0;
+						} else {
+							d = 1;
+						}
+						
+						Fireball fb = new Fireball(i, j, mTotal, sTotal, d+=2*k, curMove);
+						
+						fbList[i][j].add(fb);
+						
+//						System.out.println("나눔: " + fb.toString());
+					}
+				}
+			}
 		}
-
-		return;
-		
+	}
+	
+	private static void calM() {
+		for(int i = 0; i < N; i++) {
+			for(int j = 0; j < N; j++) {
+				if(fbList[i][j].size() > 0) {
+					for(Fireball fb : fbList[i][j]) {
+						res += fb.m;
+					}
+				}
+			}
+		}
 	}
 	
 	private static int modifyIdx(int n) {
 		int m = 0;
 		
-		if(m > 0) {
+		if(n > N) {
 			m = n % N;
-		} else if (m < 0) {
+		} else if (n < 0) {
 			m = N - Math.abs(n);
 		}
 		
@@ -213,18 +194,20 @@ class Node {
 
 class Fireball {
 	int x, y, m, s, d;
-
-	public Fireball(int x, int y, int m, int s, int d) {
+	boolean isMoved;
+	
+	public Fireball(int x, int y, int m, int s, int d, boolean isMoved) {
 		this.x = x;
 		this.y = y;
 		this.m = m;
 		this.s = s;
 		this.d = d;
+		this.isMoved = isMoved;
 	}
 
 	@Override
 	public String toString() {
-		return "Fireball [x=" + x + ", y=" + y + ", m=" + m + ", s=" + s + ", d=" + d + "]";
+		return "Fireball [x=" + x + ", y=" + y + ", m=" + m + ", s=" + s + ", d=" + d + ", isMoved=" + isMoved + "]";
 	}
 }
 
