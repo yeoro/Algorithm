@@ -5,19 +5,23 @@ import java.util.*;
 
 public class BOJ_01717_집합의표현 {
 	
+	static int[] set, rank;
+	static int n, m;
+	
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 		StringTokenizer st = new StringTokenizer(br.readLine(), " ");
 		
-		int n = Integer.parseInt(st.nextToken());
-		int m = Integer.parseInt(st.nextToken());
+		n = Integer.parseInt(st.nextToken());
+		m = Integer.parseInt(st.nextToken());
 		
-		LinkedList<Integer>[] list = new LinkedList[n+1];
+		set = new int[n+1];
+		rank = new int[n+1];
 		
 		for(int i = 0; i <= n; i++) {
-			list[i] = new LinkedList<Integer>();
-			list[i].add(i);
+			set[i] = i;
+			rank[i] = 0;
 		}
 		
 		for(int i = 0; i < m; i++) {
@@ -29,28 +33,11 @@ public class BOJ_01717_집합의표현 {
 			
 			switch(v) {
 			case 0:
-				for(int num : list[a]) {
-					if(!list[b].contains(num)) {
-						list[b].add(num);
-					}
-				}
-				
-				for(int num : list[b]) {
-					if(!list[a].contains(num)) {
-						list[a].add(num);
-					}
-				}
-				
-				for(int j = 0; j <= n; j++) {
-					for(int num : list[j]) {
-						System.out.print(j + ": " + num + " ");
-					}
-					System.out.println();
-				}
+				union(a, b);
 				
 				break;
 			case 1:
-				if(list[a].contains(b) && list[b].contains(a)) {
+				if(find(a) == find(b)) {
 					bw.write("YES\n");
 				} else {
 					bw.write("NO\n");
@@ -62,6 +49,33 @@ public class BOJ_01717_집합의표현 {
 		
 		br.close();
 		bw.flush();
+	}
+	
+	private static void union(int a, int b) {
+		int ar = find(a);
+		int br = find(b);
+		
+		if(ar == br) {
+			return;
+		}
+		
+		if(rank[ar] < rank[br]) {
+			set[ar] = br;
+		} else {
+			set[br] = ar;
+		}
+		
+		if(rank[ar] == rank[br]) {
+			rank[ar]++;
+		}
+	}
+	
+	private static int find(int a) {
+		if(set[a] == a) {
+			return a;
+		}
+		
+		return set[a] = find(set[a]);
 	}
 }
 
