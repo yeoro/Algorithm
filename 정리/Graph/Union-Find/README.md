@@ -53,7 +53,13 @@
 - 최적화
     - find
         - 경로압축: find 하면서 만난 모든 정점의 부모 노드를 루트 노드로 만든다
-        - O(logN)
+        - 경로 압축을 한 find의 시간 복잡도는 O(a(N))이 되는데 여기서 a(N)은 아커만 함수를 의미한다.
+        - 아커만 함수에서 N이 2^65536일 때, 아커만 함수의 값은 5가 되므로 상수의 시간 복잡도를 가진다고 봐도 무방하다.
     - union
         - union-by-rank(height)
         - 항상 높이가 더 낮은 트리를 높은 트리 밑에 넣는다.
+
+
+### **참고**
+- https://gmlwjd9405.github.io/2018/08/31/algorithm-union-find.html
+- https://dheldh77.tistory.com/entry/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EC%9C%A0%EB%8B%88%EC%98%A8%ED%8C%8C%EC%9D%B8%EB%93%9CUnion-Find-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-1
