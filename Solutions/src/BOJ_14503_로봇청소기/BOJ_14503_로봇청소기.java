@@ -29,114 +29,48 @@ public class BOJ_14503_로봇청소기 {
 		for(int i = 0; i < N; i++) {
 			st = new StringTokenizer(br.readLine(), " ");
 			for(int j = 0; j < M; j++) {
-				int temp = Integer.parseInt(st.nextToken());
-				
-				if(temp == 1) {
-					map[i][j] = 0;
-				} else if(temp == 0) {
-					map[i][j] = -1;
-				}
+				map[i][j] = Integer.parseInt(st.nextToken());
 			}
 		}
 		
-		map[r][c] = 1;
+		clean(r, c, d);
 		
-		clean(r, c, d, 1);
+		System.out.println(res+1);
 		
-		System.out.println(res);
 		br.close();
 	}
 	
-	private static void clean(int x, int y, int dir, int cnt) {
-//		if(cnt == 30) {
-//			return;
-//		}
+	private static void clean(int x, int y, int dir) {
+		// 현재 위치 청소
+		map[x][y] = -1;
 		
-		int curDir = dir;
-		int curCnt = cnt;
-		int nx = x;
-		int ny = y;
-		int check = 0;
-
-//		System.out.println("현재 위치 (" + nx + ", " + ny + ") " + cnt);
-//		
-//		for(int i = 0; i < N; i++) {
-//			for(int j = 0; j < M; j++) {
-//				System.out.print(map[i][j] + " ");
-//			}
-//			System.out.println();
-//		}
+		int nDir = dir;
 		
-		// 돌면서 청소할 곳 찾기
-		while(true) {
-			switch(curDir) {
-			case 0: // 북
-				curDir = 3;
-				check++;
-//				System.out.println("서: " + check);
-				break;
-			case 1: // 동
-				curDir = 0;
-				check++;
-//				System.out.println("북: " + check);
-				break;
-			case 2: // 남
-				curDir = 1;
-				check++;
-//				System.out.println("동: " + check);
-				break;
-			case 3: // 서
-				curDir = 2;
-				check++;
-//				System.out.println("남: " + check);
-				break;
-			}
-
-			nx = x + dx[curDir];
-			ny = y + dy[curDir];
-
-//			System.out.println("변환 (" + nx + ", " + ny + ") " + curDir);
+		// 네 방향을 탐색하며 청소할 곳 찾음
+		for(int i = 0; i < 4; i++) { 
+			nDir = (nDir + 3) % 4;
 			
+			int nx = x + dx[nDir];
+			int ny = y + dy[nDir];
 			
-			// 청소할 공간을 찾으면 다음 청소 진행
-			if(isIn(nx, ny) && map[nx][ny] == -1) {
-				map[nx][ny] = curCnt+1;
-				clean(nx, ny, curDir, curCnt+1);
-//				System.out.println("청소 (" + nx + ", " + ny + ")");
+			// 청소할 곳을 찾았다면 재귀호출 후 현재 함수 종료
+			if(map[nx][ny] == 0) {
+				res++;
+				clean(nx, ny, nDir);
 				return;
-			} else { // 왼쪽 방향에 청소할 공간이 없다면 회전 후 다시 탐색
-				if(check == 4) {
-					// 네 방향 모두 청소를 했거나 벽인 경우 한 칸 후진
-					switch(curDir) {
-					case 0: // 북
-						nx = x+1;
-						break;
-					case 1: // 동
-						ny = y-1;
-						break;
-					case 2: // 남
-						nx = x-1;
-						break;
-					case 3: // 서
-						ny = y+1;
-						break;
-					}
-					
-					if(isIn(nx, ny)) {
-//						System.out.println("후진 (" + nx + ", " + ny + ")");
-						clean(nx, ny, curDir, curCnt);
-						break;
-					} else if(!isIn(nx, ny) && map[nx][ny] != -1){
-						res = curCnt;
-						return;
-					}
-				}
 			}
 		}
-	}
-	
-	private static boolean isIn(int x, int y) {
-		return x > 0 && x < N-1 && y > 0 && y < M-1;
+		
+		// 네 방향을 탐색하고도 청소할 곳을 찾지 못했다면 후진 후 다시 탐색
+		int bx = x - dx[dir];
+		int by = y - dy[dir];
+		
+		// 벽이라서 후진도 못하는 경우 종료
+		if(map[bx][by] == 1) {
+			return;
+		} else {
+			clean(x-dx[dir], y-dy[dir], dir);
+		}
 	}
 }
 
