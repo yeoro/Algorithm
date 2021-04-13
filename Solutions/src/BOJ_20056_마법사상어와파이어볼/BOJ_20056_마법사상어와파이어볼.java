@@ -1,9 +1,9 @@
-package BOJ_20056_¸¶¹ı»ç»ó¾î¿ÍÆÄÀÌ¾îº¼;
+package BOJ_20056_ë§ˆë²•ì‚¬ìƒì–´ì™€íŒŒì´ì–´ë³¼;
 
 import java.io.*;
 import java.util.*;
 
-public class BOJ_20056_¸¶¹ı»ç»ó¾î¿ÍÆÄÀÌ¾îº¼ {
+public class BOJ_20056_ë§ˆë²•ì‚¬ìƒì–´ì™€íŒŒì´ì–´ë³¼ {
 	
 	static ArrayList<Fireball>[][] fbList;
 	static int[] dx = {-1, -1, 0, 1, 1, 1, 0, -1}, dy = {0, 1, 1, 1, 0, -1, -1, -1};
@@ -49,14 +49,14 @@ public class BOJ_20056_¸¶¹ı»ç»ó¾î¿ÍÆÄÀÌ¾îº¼ {
 	
 	private static void solve() {
 		while(K-- > 0) {
-			// ÆÄÀÌ¾îº¼ ÀÌµ¿
+			// íŒŒì´ì–´ë³¼ ì´ë™
 			moveFireball();
 			
-			// ÆÄÀÌ¾îº¼ÀÌ 2°³ ÀÌ»ó Á¸ÀçÇÏ´Â Ä­ ³ª´©±â ÀÛ¾÷
+			// íŒŒì´ì–´ë³¼ì´ 2ê°œ ì´ìƒ ì¡´ì¬í•˜ëŠ” ì¹¸ ë‚˜ëˆ„ê¸° ì‘ì—…
 			divFireball();
 		}
 		
-		// ³²¾ÆÀÖ´Â ÆÄÀÌ¾îº¼ Áú·® °è»ê
+		// ë‚¨ì•„ìˆëŠ” íŒŒì´ì–´ë³¼ ì§ˆëŸ‰ ê³„ì‚°
 		calM();
 	}
 	
@@ -86,7 +86,7 @@ public class BOJ_20056_¸¶¹ı»ç»ó¾î¿ÍÆÄÀÌ¾îº¼ {
 			}
 		}
 		
-		// ÆÄÀÌ¾îº¼ ÀÌµ¿
+		// íŒŒì´ì–´ë³¼ ì´ë™
 		for(Fireball fb : temp) {
 			fbList[fb.x][fb.y].add(fb);
 		}
@@ -98,11 +98,11 @@ public class BOJ_20056_¸¶¹ı»ç»ó¾î¿ÍÆÄÀÌ¾îº¼ {
 				int size = fbList[i][j].size();
 				
 				if(size >= 2) {
-					// Áú·®, ¼Óµµ¸¦ ³ª´©±â À§ÇÑ º¯¼ö
+					// ì§ˆëŸ‰, ì†ë„ë¥¼ ë‚˜ëˆ„ê¸° ìœ„í•œ ë³€ìˆ˜
 					int mTotal = 0;
 					int sTotal = 0;
 					
-					// ¹æÇâÀ» Á¤ÇÏ±â À§ÇÑ º¯¼ö
+					// ë°©í–¥ì„ ì •í•˜ê¸° ìœ„í•œ ë³€ìˆ˜
 					boolean odd = false;
 					boolean even = false;
 					
@@ -116,7 +116,7 @@ public class BOJ_20056_¸¶¹ı»ç»ó¾î¿ÍÆÄÀÌ¾îº¼ {
 							odd = true;
 						}
 						
-//						System.out.println("ÇÕÃÄÁü: " + fb.toString());
+//						System.out.println("í•©ì³ì§: " + fb.toString());
 					}
 					
 					mTotal /= 5;
@@ -124,7 +124,7 @@ public class BOJ_20056_¸¶¹ı»ç»ó¾î¿ÍÆÄÀÌ¾îº¼ {
 					
 					fbList[i][j].clear();
 
-					// ¹æÇâÀÌ ¸ğµÎ Â¦¼ö, È¦¼öÀÌ¸é (0, 2, 4, 6), ¾Æ´Ï¸é (1, 3, 5, 7)
+					// ë°©í–¥ì´ ëª¨ë‘ ì§ìˆ˜, í™€ìˆ˜ì´ë©´ (0, 2, 4, 6), ì•„ë‹ˆë©´ (1, 3, 5, 7)
 					int d;
 					if(even != odd) {
 						d = 0;
@@ -137,7 +137,7 @@ public class BOJ_20056_¸¶¹ı»ç»ó¾î¿ÍÆÄÀÌ¾îº¼ {
 						
 						fbList[i][j].add(fb);
 						
-//						System.out.println("³ª´®: " + fb.toString());
+//						System.out.println("ë‚˜ëˆ”: " + fb.toString());
 					}
 				}
 			}
