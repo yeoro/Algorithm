@@ -1,19 +1,19 @@
-# <img src="https://static.solved.ac/tier_small/31.svg" width=30> 00000: 
+# <img src="https://static.solved.ac/tier_small/8.svg" width=30> 1463: 1로 만들기 
 
 ### 문제 링크
-> https://www.acmicpc.net/problem/
+> https://www.acmicpc.net/problem/1436
 
 ### 알고리즘 분류
->- 
+>- 다이나믹 프로그래밍
 
 ### 풀이 시간
->- ⏱ 분
+>- ⏱ 26분
 
 ### 해결
 > ![bad](../../../Img/bad.png)  
->1. 1
->2. 2
->  
+>1. 배열의 크기를 N+1로 했더니 N이 1일 때 dp[2] = 1 때문에 런타임에러 발생
+>2. 배열의 크기를 1,000,001으로 초기화 해줌
+>
 > ![good](../../../Img/good.png)
->1. 1
->2. 2
+>1. dp[1]과 dp[2]는 각각 0과 1로 초기화해준 후, 3부터 N까지 반복문 돌며 dp 배열의 값을 계산한다.
+>2. 3가지 연산을 하며 dp[i]에 값을 저장한다. 값을 저장할 때는 현재 값보다 작은 값인지 판단 후에 넣는다.

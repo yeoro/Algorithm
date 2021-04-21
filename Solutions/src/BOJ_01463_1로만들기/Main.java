@@ -13,7 +13,7 @@ class Main {
 		
 		N = Integer.parseInt(br.readLine());
 		
-		dp = new int[N+1];
+		dp = new int[1000001];
 		Arrays.fill(dp, Integer.MAX_VALUE);
 		
 		dp[1] = 0;
