@@ -50,7 +50,7 @@ class Prim {
 			if(v[cur.to]) {
 				continue;
 			}
-			
+			 
 			v[cur.to] = true;
 			cnt += cur.weight;
 
