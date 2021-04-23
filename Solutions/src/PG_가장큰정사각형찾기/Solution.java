@@ -56,13 +56,13 @@ class Solution {
 					// System.out.println(i + " " + j + " " + " " + k + " " + cur);
 
 					if(cur == check){
-//						return cur;
+						return cur;
 					}
 				}
 			}
 		}
 
-//		return answer;
+		return answer;
 	}
 
 	private static boolean isIn(int x, int y){
