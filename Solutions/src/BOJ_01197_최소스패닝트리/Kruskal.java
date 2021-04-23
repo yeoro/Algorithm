@@ -3,7 +3,7 @@ package BOJ_01197_최소스패닝트리;
 import java.io.*;
 import java.util.*;
 
-class Main {
+class Kruskal {
 	
 	static Node[] adj;
 	static int[] p, rank;
