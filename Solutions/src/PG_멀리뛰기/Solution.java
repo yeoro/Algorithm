@@ -5,41 +5,24 @@ import java.util.*;
 
 class Solution {
 	
-	static int[] position;
-	static boolean[] v;
-	static long answer;
-	static int N;
+	static long[] position;
 	
 	public static void main(String[] args) {
 		int n = 4;
 		
-		N = n;
+		position = new long[n+1];
 		
-		position = new int[N+1];
-		v = new boolean[N+1];
+		position[1] = 1;
 		
-		jump(0);
-		
-		System.out.println(position[N] % 1234567);
-	}
-	
-	private static void jump(int pos) {
-		if(pos == N) {
-			position[N]++;
-			return;
+		if(n > 1) {
+			position[2] = 2;
 		}
 		
-		if(isIn(pos+1)) {
-			jump(pos+1);
+		for(int i = 3; i <= n; i++) {
+			position[i] = (position[i-1] + position[i-2]) % 1234567;
 		}
 		
-		if(isIn(pos+2)) {
-			jump(pos+2);
-		}
-	}
-	
-	private static boolean isIn(int x) {
-		return x > 0 && x <= N;
+		System.out.println(position[n]);
 	}
 }
 
