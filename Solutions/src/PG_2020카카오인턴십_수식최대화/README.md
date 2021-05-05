@@ -1,16 +1,25 @@
-# <img src="https://programmers.co.kr/assets/bi-symbol-light-49a242793b7a8b540cfc3489b918e3bb2a6724f1641572c14c575265d7aeea38.png" width=30>  
+# <img src="https://programmers.co.kr/assets/bi-symbol-light-49a242793b7a8b540cfc3489b918e3bb2a6724f1641572c14c575265d7aeea38.png" width=30>  2020 카카오 인턴십 - 수식 최대화
 
 ### 문제 링크
-> https://programmers.co.kr/learn/courses/30/lessons/
+> https://programmers.co.kr/learn/courses/30/lessons/67257
 
 ### 알고리즘 분류
->- 
+>- 브루트포스 알고리즘
+>- 구현
+>- 문자열
 
 ### 풀이 시간
->- ⏱ 분
-
-### 채점 결과
->-
+>- ⏱ 40분
 
 ### 해결
->- 
+>1. 주어진 수식에 존재하는 연산자 종류를 opsList에 넣는다.
+>2. 주어진 수식에 존재하는 모든 연산자를 opList에 넣는다.
+>3. 주어진 수식에 존재하는 모든 피연산자를 numList에 넣는다.
+>       - 수식 문자열을 split 메소드로 쪼개 String 배열을 만든다.
+>       - 배열의 각 문자열을 Long형으로 파싱하여 numList에 넣는다.
+>4. 연산자의 순서를 모두 만들어보며 연산을 진행한다.
+>5. 연산은 다음과 같이 진행했다.
+>       1. 연산자의 순서 리스트, 피연산자 리스트, 모든 연산자 리스트를 복사한 3개의 리스트를 선언한다.
+>       2. 연산자의 순서에 따라 수식에 존재하는 해당 연산자를 찾는다. opList에서 찾은 연산자의 인덱스를 j라고 한다면, 그 연산자의 양 옆에 있는 피연산자는 numList에서 j와 j+1번째 숫자이다.
+>       3. j번째와 j+1번째 피연산자를 연산한 후, 연산을 마친 연산자는 opList에서 지워준다. 또한 numList에서 j번째 피연산자를 연산 결과로 바꿔주고 j+1번째 피연산자는 지워준다.
+>6. 각 연산을 진행한 후 최댓값 찾아 반환한다.

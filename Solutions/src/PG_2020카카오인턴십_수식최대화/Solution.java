@@ -5,116 +5,96 @@ import java.util.*;
 
 class Solution {
 	
-	static ArrayList<String> list = new ArrayList<String>();
-	static ArrayList<Integer> comb = new ArrayList<Integer>();
-	static ArrayList<String> num = new ArrayList<String>();
-	static String input = "100-200*300-500+20";
-	static int N;
+	static ArrayList<Character> ops = new ArrayList<Character>();
+	static ArrayList<Character> comb = new ArrayList<Character>();
+	static ArrayList<Character> opList = new ArrayList<Character>();
+	static ArrayList<Long> numList = new ArrayList<Long>();
 	static long max = Long.MIN_VALUE;
-	static StringBuilder sb = new StringBuilder("100-200*300-500+20");
 	
 	public static void main(String[] args) {
+		String expression = "100-200*300-500+20";
+		long answer = 0;
 		
-		if(input.contains("-")) {
-			list.add("-");
+		if(expression.contains("-")) ops.add('-');
+		if(expression.contains("+")) ops.add('+');
+		if(expression.contains("*")) ops.add('*');
+		
+		for(int i = 0, length = expression.length(); i < length; i++) {
+			if(isOp(expression.charAt(i))) {
+				opList.add(expression.charAt(i));
+			}
 		}
-		if(input.contains("+")) {
-			list.add("+");
+		
+		String[] temp = expression.split("[*+-]");
+		for(int i = 0, size = temp.length; i < size; i++) {
+			numList.add(Long.parseLong(temp[i]));
 		}
-		if(input.contains("*")) {
-			list.add("*");
-		}
 		
-		N = list.size();
+		makeOrder(0, ops.size());
 		
-		go(0);
+		answer = max;
 		
-		System.out.println(max);
+		System.out.println(answer);
 	}
 	
-	private static void go(int depth) {
+	private static boolean isOp(char c) {
+		return c == '-' || c == '+' || c == '*';
+	}
+	
+	private static void makeOrder(int depth, int N) {
 		if(depth == N) {
-			System.out.println("---------------------");
-			
-			StringBuilder temp = new StringBuilder(input);
-			
-			for(int i : comb) {
-				String cur = list.get(i);
-				
-				for(int j = 0; j < temp.length(); j++) {
-					if((temp.charAt(j)+"").equals(cur)) {
-						StringBuilder r = new StringBuilder();
-						StringBuilder l = new StringBuilder();
-						
-						int rIdx = j+1;
-						int lIdx = j-1;
-						
-						while(lIdx >= 0) {
-							char c = temp.charAt(lIdx);
-							if(c >= '0' && c <= '9') {
-								l.append(c);
-							} else {
-								break;
-							}
-							
-							lIdx--;
-						}
-						
-						while(rIdx < temp.length()) {
-							char c = temp.charAt(rIdx);
-							if(c >= '0' && c <= '9') {
-								r.append(c);
-							} else {
-								break;
-							}
-							
-							rIdx++;
-						}
-						
-						lIdx++;
-						
-						long res = cal(cur, l.reverse().toString(), r.toString());
-						
-						
-						temp = temp.delete(lIdx, rIdx);
-						temp = temp.insert(lIdx, Long.toString(res));
-						
-						System.out.println(lIdx + " " + rIdx + " " + res + " " + cur);
-						System.out.println(l.toString() + " " + r.toString());
-						System.out.println(temp.toString());
-					}
-				}
-			}
-			
-			max = Math.max(max, Long.parseLong(temp.toString()));
-			System.out.println("---------------------");
-			
+			solve();
 			return;
 		}
 		
-		for(int i = 0; i < N; i++) {
-			if(!comb.contains(i)) {
-				comb.add(i);
-				go(depth+1);
+		for(int i = 0, size = ops.size(); i < size; i++) {
+			if(!comb.contains(ops.get(i))) {
+				comb.add(ops.get(i));
+				makeOrder(depth+1, N);
 				comb.remove(comb.size()-1);
 			}
 		}
 	}
 	
-	private static long cal(String op, String l, String r) {
-		long n1 = Long.parseLong(l);
-		long n2 = Long.parseLong(r);
+	private static void solve() {
+		ArrayList<Character> combTemp = new ArrayList<Character>(comb);
+		ArrayList<Character> opTemp = new ArrayList<Character>(opList);
+		ArrayList<Long> numTemp = new ArrayList<Long>(numList);
+		
+		for(int i = 0; i < combTemp.size(); i++) {
+			char curOp = combTemp.get(i);
+			
+			for(int j = 0; j < opTemp.size(); j++) {
+				if(curOp == opTemp.get(j)) {
+					long num1 = numTemp.get(j);
+					long num2 = numTemp.get(j+1);
+					
+					long res = cal(num1, num2, curOp);
+					
+					opTemp.remove(j);
+					numTemp.set(j, res);
+					numTemp.remove(j+1);
+					
+					j--;
+				}
+			}
+		}
+		
+		max = Math.max(max, Math.abs(numTemp.get(0)));
+	}
+	
+	private static long cal(long num1, long num2, char op) {
 		long res = 0;
 		
 		switch(op) {
-		case "*":
-			res = n1 * n2;
+		case '-':
+			res = num1 - num2;
 			break;
-		case "+":
-			res = n1 + n2;
+		case '+':
+			res = num1 + num2;
 			break;
-		case "-":
-			res = n1 - n2;
+		case '*':
+			res = num1 * num2;
 			break;
 		}
 		
