@@ -5,10 +5,9 @@ import java.util.*;
 
 class Solution {
 	
-	static HashMap<String, Integer> hm = new HashMap<String, Integer>();
-    static int[] position;
+	static ArrayList<String> list = new ArrayList<String>();
+	static String[] friends = {"A", "C", "F", "J", "M", "N", "R", "T"};
     static String[] datas;
-	static boolean[] v;
 	static int answer;
 	
 	public static void main(String[] args) {
@@ -16,17 +15,6 @@ class Solution {
 		
 		datas = data;
 		answer = 0;
-		v = new boolean[8];
-		position = new int[8];
-		
-		hm.put("A", 0);
-		hm.put("C", 1);
-		hm.put("F", 2);
-		hm.put("J", 3);
-		hm.put("M", 4);
-		hm.put("N", 5);
-		hm.put("R", 6);
-		hm.put("T", 7);
 		
 		stand(0);
 		
@@ -44,11 +32,10 @@ class Solution {
 		}
 		
 		for(int i = 0; i < 8; i++) {
-			if(!v[i]) {
-				v[i] = true;
-				position[depth] = i;
+			if(!list.contains(friends[i])) {
+				list.add(friends[i]);
 				stand(depth+1);
-				v[i] = false;
+				list.remove(list.size()-1);
 			}
 		}
 	}
@@ -56,10 +43,10 @@ class Solution {
 	private static boolean check() {
 		for(String s : datas) {
 			
-			int n1 = position[hm.get(s.charAt(0)+"")];
-			int n2 = position[hm.get(s.charAt(2)+"")];
+			int n1 = list.indexOf(s.charAt(0)+"");
+			int n2 = list.indexOf(s.charAt(2)+"");
 			char op = s.charAt(3);
-			int dis = s.charAt(4) - '0';
+			int dis = Integer.parseInt(s.charAt(4)+"");
 			
 			switch(op) {
 			case '=':
