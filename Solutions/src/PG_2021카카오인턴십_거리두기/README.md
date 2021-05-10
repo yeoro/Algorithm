@@ -1,16 +1,22 @@
-# <img src="https://programmers.co.kr/assets/bi-symbol-light-49a242793b7a8b540cfc3489b918e3bb2a6724f1641572c14c575265d7aeea38.png" width=30>  
+# <img src="https://programmers.co.kr/assets/bi-symbol-light-49a242793b7a8b540cfc3489b918e3bb2a6724f1641572c14c575265d7aeea38.png" width=30>  2021 카카오 인턴십 - 거리 두기
 
 ### 문제 링크
 > https://programmers.co.kr/learn/courses/30/lessons/
 
 ### 알고리즘 분류
->- 
+>- 너비 우선 탐색
 
 ### 풀이 시간
->- ⏱ 분
-
-### 채점 결과
->-
+>- ⏱ 1시간
 
 ### 해결
->- 
+>1. places 배열의 각 행이 테스트케이스이기 때문에 각 행에 대응하는 2차원 배열을 만든다.
+>2. 배열에 존재하는 응시생의 위치에서 BFS를 진행한다. BFS 과정은 다음과 같다.
+>       1. 현재 좌표를 기준으로 4방 탐색을 진행한다.
+>       2. 빈 공간이면 거리를 1증가하고 큐에 넣는다.
+>       3. 파티션이면 거리와 파티션 갯수를 1증가하고 큐에 넣는다.
+>       4. 응시생이면 다음 조건에 맞지 않을 경우 해당 행의 상태 변수를 false로 바꾼 후 탐색을 중단한다.
+>               1. 거리가 2보다 큰 경우
+>               2. 거리가 2이하이지만 파티션이 1이상인 경우
+>       5. BFS 탐색이 끝난 후 상태 변수가 false이면 answer 배열에 0을 넣고, 아니면 1을 넣는다.
+
