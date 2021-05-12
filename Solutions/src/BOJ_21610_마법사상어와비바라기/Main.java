@@ -68,36 +68,8 @@ class Main {
 			v = new boolean[N][N];
 			
 			move(i);
-			
-//			System.out.println("------이동");
-//			for(Node n : cloud) {
-//				System.out.println(n.toString());
-//			}
-			
 			copy();
-			
-//			System.out.println("------물복사");
-//			for(int k = 0; k < N; k++) {
-//				for(int j = 0; j < N; j++) {
-//					System.out.print(map[k][j] + " ");
-//				}
-//				System.out.println();
-//			}
-			
 			makeCloud();
-			
-//			System.out.println("-------구름생성");
-//			for(int k = 0; k < N; k++) {
-//				for(int j = 0; j < N; j++) {
-//					System.out.print(map[k][j] + " ");
-//				}
-//				System.out.println();
-//			}
-//			
-//			for(Node n : cloud) {
-//				System.out.println(n.toString());
-//			}
-			
 		}
 		
 		count();
@@ -132,7 +104,6 @@ class Main {
 			
 			int cnt = 0;
 			
-			//1, 3, 5, 7 방향
 			for(int i = 1; i < 8; i+=2) {
 				int nx = x + dx[i];
 				int ny = y + dy[i];
@@ -170,4 +141,3 @@ class Main {
 		return x >= 0 && x < N && y >= 0 && y < N;
 	}
 }
-
