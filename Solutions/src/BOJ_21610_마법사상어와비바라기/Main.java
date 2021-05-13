@@ -125,7 +125,7 @@ class Main {
 					cloud.offer(new Node(i, j));
 					map[i][j] -= 2;
 				}
-			}
+			} 
 		}
 	}
 	

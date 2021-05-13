@@ -23,7 +23,8 @@ class Main {
 	static Node[] bead;
 	static int[][] map;
 	static int[] dx = {-1, 1, 0, 0}, dy = {0, 0, -1, 1};
-	static int N, M, end, one, two, three;
+	static int[] res = new int[4];
+	static int N, M, end;
 	
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -75,10 +76,6 @@ class Main {
 		}
 		list.addFirst(new Node(N/2, N/2));
 		
-		for(Node n : list) {
-			System.out.println(n.toString());
-		}
-		
 		solve();
 		
 		br.close();
@@ -106,9 +103,28 @@ class Main {
 				System.out.println();
 			}
 			
-			if(check()) {
+			while(check()) {
 				bomb();
+				
+				System.out.println("-----Æã");
+				for(int k = 0; k < N; k++) {
+					for(int j = 0; j < N; j++) {
+						System.out.print(map[k][j] + " ");
+					}
+					System.out.println();
+				}
+				move();
+				
+				System.out.println("-----ºóÀÚ¸®ÀÌµ¿");
+				for(int k = 0; k < N; k++) {
+					for(int j = 0; j < N; j++) {
+						System.out.print(map[k][j] + " ");
+					}
+					System.out.println();
+				}
 			}
+			
+			divide();
 			
 		}
 	}
@@ -121,30 +137,19 @@ class Main {
 			int nx = N/2 + dx[d]*i;
 			int ny = N/2 + dy[d]*i;
 			
-			switch(map[nx][ny]) {
-			case 1:
-				one++;
-				break;
-			case 2:
-				two++;
-				break;
-			case 3:
-				three++;
-				break;
-			}
-			
+			res[map[nx][ny]]++;
 			map[nx][ny] = 0;
 		}
 	}
 	
 	private static void move() {
 		loop:for(int i = 1, size = list.size(); i < size; i++) {
-			Node cur = bead[i];
+			Node cur = list.get(i);
 			int x = cur.x; int y = cur.y;
 			
 			if(map[x][y] == 0) {
 				for(int j = i+1; j < size; j++) {
-					Node next = bead[j];
+					Node next = list.get(j);
 					int nx = next.x; int ny = next.y;
 					
 					if(map[nx][ny] != 0) {
@@ -168,7 +173,7 @@ class Main {
 			Node next = list.get(i+1);
 			int nx = next.x; int ny = next.y;
 			
-			if(map[x][y] == map[nx][ny]) {
+			if(map[x][y] != 0 && map[x][y] == map[nx][ny]) {
 				cnt++;
 				if(cnt >= 4) {
 					return true;
@@ -186,23 +191,47 @@ class Main {
 		
 		for(int i = 1; i < list.size()-2; i++) {
 			temp.add(list.get(i));
-			
 			Node cur = list.get(i);
 			int x = cur.x; int y = cur.y;
 			
 			Node next = list.get(i+1);
 			int nx = next.x; int ny = next.y;
 			
-			if(map[x][y] == map[nx][ny]) {
-				temp.add(list.get(i+1));
-			} else {
-				temp.remove(list.get(list.size()-1));
-			}
+			if(map[x][y] != map[nx][ny]) {
+				if(temp.size() >= 4) {
+					for(Node n : temp) {
+						res[map[n.x][n.y]]++;
+						map[n.x][n.y] = 0;
+					}
+				}
+				
+				temp.clear();
+			} 
 		}
+	}
+	
+	private static void divide() {
+		ArrayList<Integer> temp = new ArrayList<Integer>();
 		
-		System.out.println("-----¿¬¼Ó");
-		for(Node n : temp) {
-			System.out.println(n.toString());
+		for(int i = 1; i < list.size()-2; i++) {
+			temp.add(i);
+			Node cur = list.get(i);
+			int x = cur.x; int y = cur.y;
+			
+			Node next = list.get(i+1);
+			int nx = next.x; int ny = next.y;
+			
+			if(map[x][y] != map[nx][ny]) {
+				if(temp.size() == 1) {
+					int idx = temp.get(0);
+					
+					Node cnt = list.get(idx);
+					Node num = list.get(idx+1);
+				}
+
+				
+				temp.clear();
+			} 
 		}
 	}
 }
