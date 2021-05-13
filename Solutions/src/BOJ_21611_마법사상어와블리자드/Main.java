@@ -20,11 +20,10 @@ class Main {
 	}
 	static LinkedList<Node> list = new LinkedList<Node>();
 	static Node[] spell;
-	static Node[] bead;
 	static int[][] map;
 	static int[] dx = {-1, 1, 0, 0}, dy = {0, 0, -1, 1};
 	static int[] res = new int[4];
-	static int N, M, end;
+	static int N, M;
 	
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -35,8 +34,6 @@ class Main {
 		
 		map = new int[N][N];
 		spell = new Node[M];
-		bead = new Node[N*N];
-		end = N*N;
 
 		for(int i = 0; i < N; i++) {
 			st = new StringTokenizer(br.readLine(), " ");
@@ -51,8 +48,6 @@ class Main {
 			
 			spell[i] = new Node(Integer.parseInt(st.nextToken())-1, Integer.parseInt(st.nextToken()));
 		}
-		
-		bead[0] = new Node(N/2, N/2);
 		
 		int x = 0; int y = N-1;
 		for(int i = 0; i < N/2; i++) {
