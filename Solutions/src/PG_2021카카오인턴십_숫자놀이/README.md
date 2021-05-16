@@ -1,16 +1,18 @@
-# <img src="https://programmers.co.kr/assets/bi-symbol-light-49a242793b7a8b540cfc3489b918e3bb2a6724f1641572c14c575265d7aeea38.png" width=30>  
+# <img src="https://programmers.co.kr/assets/bi-symbol-light-49a242793b7a8b540cfc3489b918e3bb2a6724f1641572c14c575265d7aeea38.png" width=30>  2021 카카오 인턴십 - 숫자 놀이
 
 ### 문제 링크
 > https://programmers.co.kr/learn/courses/30/lessons/
 
 ### 알고리즘 분류
->- 
+>- 문자열
 
 ### 풀이 시간
->- ⏱ 분
-
-### 채점 결과
->-
+>- ⏱ 30분
 
 ### 해결
->- 
+>1. 맵을 만들고 각 숫자 키에 대응하는 단어를 값으로 넣어준다.
+>2. 문자열의 왼쪽부터 반복문 2개를 이용하여 다음과 같이 탐색을 진행한다.
+>       1. 현재 인덱스에서 임시 StringBuilder 객체를 하나 선언한다.
+>       2. 문자열 끝까지 탐색하며 숫자이면 바로 출력 문자열에 추가한다.
+>       3. 알파벳이면 임시 SB 객체에 넣는다. SB가 맵에 존재하는 단어와 일치한다면 대응하는 키를 출력 문자열에 추가한다.
+>3. 완성된 문자열을 출력한다.
