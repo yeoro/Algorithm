@@ -37,14 +37,13 @@ class Main {
 		}
 		
 		// 길이가 3이상인 수
-		for(int i = 2; i <= N; i++) {
-			for(int j = 1; j < N-1; j++) {
-				if(nums[j] == nums[j+i] && dp[j+1][]) {
-					
+		for(int i = 2; i < N; i++) {
+			for(int j = 1; j <= N-i; j++) {
+				if(nums[j] == nums[j+i] && dp[j+1][j+i-1] == 1) {
+					dp[j][j+i] = 1;
 				}
 			}
 		}
-		
 		
 		int M = Integer.parseInt(br.readLine());
 		
