@@ -3,7 +3,7 @@ package BOJ_11053_가장긴증가하는부분수열;
 import java.io.*;
 import java.util.*;
 
-class Main {
+class ON2 {
 	
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
