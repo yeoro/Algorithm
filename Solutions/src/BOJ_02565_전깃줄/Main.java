@@ -23,8 +23,7 @@ class Main {
 			return "Node [x=" + x + ", y=" + y + "]";
 		}
 	}
-	static Node[] nums;
-	static int[] dp;
+	static Node[] nums, dp;
 	static int N;
 	
 	public static void main(String[] args) throws IOException {
@@ -33,7 +32,7 @@ class Main {
 		
 		N = Integer.parseInt(br.readLine());
 		nums = new Node[N];
-		dp = new int[N];
+		dp = new Node[N];
 		
 		for(int i = 0; i < N; i++) {
 			st = new StringTokenizer(br.readLine(), " ");
@@ -43,21 +42,35 @@ class Main {
 		
 		Arrays.sort(nums);
 		
-		for(int i = 0; i < N; i++) {
-			dp[i] = 1;
-			
-			for(int j = 0; j < N; j++) {
-				if(nums[j].x < nums[i].x && nums[j].y < nums[i].y) {
-					dp[i] = Math.max(dp[i], dp[j]+1);
-				}
+		dp[0] = nums[0];
+		int dpIdx = 0;
+		
+		for(int nIdx = 1; nIdx < N; nIdx++) {
+			if(dp[dpIdx].x < nums[nIdx].x && dp[dpIdx].y < nums[nIdx].y) {
+				dp[dpIdx+1] = nums[nIdx];
+				dpIdx++;
+			} else {
+				int idx = binarySearch(0, dpIdx, nums[nIdx]);
+				dp[idx] = nums[nIdx];
 			}
 		}
 		
-		Arrays.sort(dp);
-		
-		System.out.println(N - dp[N-1]);
-		
+		System.out.println(N-(dpIdx+1));
 		br.close();
+	}
+	
+	private static int binarySearch(int left, int right, Node target) {
+		while(left < right) {
+			int mid = (left + right) / 2;
+			
+			if(dp[mid].x < target.x && dp[mid].y < target.y) {
+				left = mid + 1;
+			} else {
+				right = mid;
+			}
+		}
+		
+		return right;
 	}
 }
 
