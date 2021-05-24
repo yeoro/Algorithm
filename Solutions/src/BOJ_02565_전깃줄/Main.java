@@ -56,6 +56,7 @@ class Main {
 		}
 		
 		System.out.println(N-(dpIdx+1));
+		
 		br.close();
 	}
 	

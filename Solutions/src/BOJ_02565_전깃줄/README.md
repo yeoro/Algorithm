@@ -1,19 +1,16 @@
-# <img src="https://static.solved.ac/tier_small/31.svg" width=30> 00000: 
+# <img src="https://static.solved.ac/tier_small/10.svg" width=30> 2565: 전깃줄 
 
 ### 문제 링크
-> https://www.acmicpc.net/problem/
+> https://www.acmicpc.net/problem/2565
 
 ### 알고리즘 분류
->- 
+>- 다이나믹 프로그래밍
 
 ### 풀이 시간
->- ⏱ 분
+>- ⏱ 30분
 
 ### 해결
-> ![bad](../../../Img/bad.png)  
->1. 1
->2. 2
->  
 > ![good](../../../Img/good.png)
->1. 1
->2. 2
+>1. 전깃줄을 겹치지 않게 놓기 위해서는 선택된 전깃줄의 양쪽 번호들이 증가 수열을 이루어야 한다.
+>2. dp 배열과 수열 배열을 객체 배열로 만들어 이분 탐색을 진행하며 dp 배열을 완성시킨다.
+>3. 전깃줄의 총 개수에서 dp 배열의 인덱스+1를 뺀 후 출력한다.
