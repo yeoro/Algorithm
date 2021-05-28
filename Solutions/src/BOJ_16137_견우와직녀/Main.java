@@ -115,7 +115,7 @@ class Main {
 						q.offer(new Node(nx, ny, time+1, false));
 					}
 					
-					// 다리
+					// 다리	
 					if(!cross && map[nx][ny] >= 2) {
 						if((time+1) % map[nx][ny] == 0) {
 							v[nx][ny] = true;
