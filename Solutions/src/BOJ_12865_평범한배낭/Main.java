@@ -5,9 +5,8 @@ import java.util.*;
 
 class Main {
 	
-	static ArrayList<Integer> temp = new ArrayList<Integer>();
-	static Stuff[] stuff;
-	static int[] dp;
+	static int[][] dp;
+	static int[] w, v;
 	static int N, K, max = Integer.MIN_VALUE;
 	
 	public static void main(String[] args) throws IOException {
@@ -18,55 +17,34 @@ class Main {
 		N = Integer.parseInt(st.nextToken());
 		K = Integer.parseInt(st.nextToken());
 		
-		stuff = new Stuff[N];
-		dp = new int[101];
+		dp = new int[N+1][K+1];
+		w = new int[N+1];
+		v = new int[N+1];
 		
-		for(int i = 0; i < N; i++) {
+		for(int i = 1; i <= N; i++) {
 			st = new StringTokenizer(br.readLine(), " ");
 			
 			int W = Integer.parseInt(st.nextToken());
 			int V = Integer.parseInt(st.nextToken());
 			
-			stuff[i] = new Stuff(W, V);
-			dp[W] = V;
+			w[i] = W;
+			v[i] = V;
 		}
 		
-		solve(0);
+		for(int i = 1; i <= N; i++) {
+			for(int j = K; j >= 1; j--) {
+				if(w[i] <= j) {
+					dp[i][j] = Math.max(dp[i-1][j], dp[i-1][j-w[i]]+v[i]);
+				} else {
+					dp[i][j] = dp[i-1][j];
+				}
+			}
+		}
 		
-		bw.write(max + "\n");
+		bw.write(dp[N][K] + "\n");
 		
 		br.close();
 		bw.flush();
-	}
-	
-	private static void solve(int weight) {
-		if(weight > K) {
-			return;
-		}
-		
-		int sum = 0;
-		for(int i : temp) {
-			sum += stuff[i].v;
-		}
-		
-		max = Math.max(max, sum);
-		
-		for(int i = 0; i < N; i++) {
-			if(!temp.contains(i)) {
-				temp.add(i);
-				solve(weight + stuff[i].w);
-				temp.remove(temp.size()-1);
-			}
-		}
-	}
-}
-
-class Stuff {
-	int w, v;
-
-	public Stuff(int w, int v) {
-		this.w = w;
-		this.v = v;
 	}
 }
 
