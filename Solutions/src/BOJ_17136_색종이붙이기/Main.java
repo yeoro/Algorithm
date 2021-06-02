@@ -53,7 +53,7 @@ class Main {
 	private static void solve(int p) {
 		if(p > cnt) {
 			return;
-		}
+		} 
 		
 		if(p == cnt) {
 			int temp = 0;

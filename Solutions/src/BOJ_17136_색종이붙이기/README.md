@@ -4,7 +4,7 @@
 > https://www.acmicpc.net/problem/
 
 ### 알고리즘 분류
->- 
+>-   
 
 ### 풀이 시간
 >- ⏱ 분
