@@ -16,8 +16,6 @@ class Main {
 		
 		address = br.readLine().split(":", -1);
 		
-		System.out.println(Arrays.toString(address));
-		
 		for(String s : address) {
 			if(s.equals("")) {
 				zero++;
@@ -66,8 +64,6 @@ class Main {
 				int expect = 8-i;
 				int current = address.length-i;
 				int add = expect-current+zero;
-				
-				System.out.println(expect + " " + current + " " + add);
 				
 				for(int j = 0; j < add; j++) {
 					sb.append("0000:");
