@@ -28,32 +28,38 @@ public class BOJ_02750_수정렬하기_Quick {
 	}
 	
 
-	static void quickSort(int start, int end) {
-
-		if(start > end) {
+	static void quickSort(int left, int right) {
+		if(left >= right) {
 			return;
 		}
 		
-		int pivot = start;
-		int left = start + 1;
-		int right = end;
+		int pivot = partition(left, right);
 		
-		while(left <= right) {
-			while(left <= end && nums[pivot] >= nums[left]) {
-				left++;
+		quickSort(left, pivot-1);
+		quickSort(pivot+1, right);
+	}
+	
+	static int partition(int left, int right) {
+		int pivot = nums[left];
+		int i = left, j = right;
+		
+		while(i < j) {
+			while(pivot < nums[j]) {
+				j--;
 			}
-			while(right > start && nums[pivot] <= nums[right]) {
-				right--;
+			
+			while(i < j && pivot >= nums[i]) {
+				i++;
 			}
-			if(left < right) {
-				swap(left, right);
-			}
+			
+			
+			swap(i, j);
 		}
 		
-		swap(right, pivot);
+		nums[left] = nums[i];
+		nums[i] = pivot;
 		
-		quickSort(start, pivot-1);
-		quickSort(pivot+1, end);
+		return i;
 	}
 	
 	static void swap(int x, int y) {
