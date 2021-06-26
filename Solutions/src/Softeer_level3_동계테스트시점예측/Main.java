@@ -3,7 +3,6 @@ package Softeer_level3_동계테스트시점예측;
 import java.util.*;
 import java.io.*;
 
-
 public class Main
 {
 	static class Node {
@@ -13,14 +12,9 @@ public class Main
 			this.x = x;
 			this.y = y;
 		}
-
-		@Override
-		public String toString() {
-			return "(" + x + ", " + y + ")";
-		}
 	}
-	static ArrayList<Node> list = new ArrayList<Node>();
-	static Queue<Node> temp = new LinkedList<Node>();
+	static ArrayList<Node> iceList = new ArrayList<Node>(); // 녹일 얼음
+	static Queue<Node> airList = new LinkedList<Node>(); // 얼음을 녹일 공기
 	static int[][] map, cnt;
 	static boolean[][] v;
 	static int[] dx = {-1, 1, 0, 0}, dy = {0, 0, -1, 1};
@@ -36,7 +30,6 @@ public class Main
 
 		map = new int[N][M];
 
-
 		for(int i = 0; i < N; i++) {
 			st = new StringTokenizer(br.readLine(), " ");
 
@@ -47,16 +40,15 @@ public class Main
 
 		solve();
 
-
 		br.close();
 	}
 
 	private static void solve() {
 		while(true) {
-			cnt = new int[N][M];
+			cnt = new int[N][M]; // 인접한 공기의 수를 저장할 배열
 			v = new boolean[N][M];
 
-			// 외부 공기 판단
+			// 얼음이 인접한 외부 공기만 골라내는 작업
 			loop: for(int i = 0; i < N; i++) {
 				for(int j = 0; j < M; j++) {
 					if(map[i][j] == 0 && !v[i][j]) {
@@ -66,21 +58,12 @@ public class Main
 				}
 			}
 
-			// 얼음 녹이기
-			if(pickIce()) {
-				System.out.println("-------------- pick");
-				for(int i = 0; i < N; i++) {
-					for(int j = 0; j < M; j++) {
-						System.out.print(cnt[i][j] + " ");
-					}
-					System.out.println();
-				}
-				melt();
-				System.out.println("-------------- melt");
-				print();
-				time++;
+			if(pickIce()) { // 2개 이상의 공기와 인접한 얼음을 골라내는 작업
+				melt(); // 얼음 녹이기
+				time++; // 시간 증가
 			} else {
-				System.out.println("time: " + time);
+				// 녹일 얼음이 없다면 시간을 출력하고 종료
+				System.out.println(time);
 				break;
 			}
 		}
@@ -97,35 +80,32 @@ public class Main
 			y = cur.y;
 			boolean chk = false;
 
-//			 System.out.println(cur.toString());
-
 			for(int i = 0; i < 4; i++) {
 				int nx = x + dx[i];
 				int ny = y + dy[i];
 
 				if(isIn(nx, ny)) {
-					if(!v[nx][ny] && map[nx][ny] == 0) {
+					if(!v[nx][ny] && map[nx][ny] == 0) { // 공기일 경우 큐에 넣음
 						v[nx][ny] = true;
 						q.offer(new Node(nx, ny));
-					}  else if(map[nx][ny] == 1) {
+					} else if(map[nx][ny] == 1) { // 얼음일 경우
 						chk = true;
 					}
 				}
 			}
 
+			// 주변에 얼음이 있는 공기인 경우는 얼음을 녹이기 위해 리스트에 저장
 			if(chk) {
-				temp.offer(cur);
+				airList.offer(cur);
 			}
 		}
 	}
 
 	private static boolean pickIce() {
-		while(!temp.isEmpty()) {
-			Node cur = temp.poll();
+		while(!airList.isEmpty()) {
+			Node cur = airList.poll();
 			int x = cur.x;
 			int y = cur.y;
-
-			 System.out.println("--------------- " + cur.toString());
 
 			// 공기 주변에 얼음이 있으면 해당 얼음 자리에 카운트 증가
 			for(int k = 0; k < 4; k++) {
@@ -133,21 +113,22 @@ public class Main
 				int ny = y + dy[k];
 
 				if(isIn(nx, ny) && map[nx][ny] == 1) {
-					 System.out.println(nx + " " + ny);
 					cnt[nx][ny]++;
 				}
 			}
 		}
-
+		
+		// 2개 이상의 공기와 인접한 얼음을 녹이기 위해 리스트에 저장
 		for(int i = 0; i < N; i++) {
 			for(int j = 0; j < M; j++) {
 				if(cnt[i][j] >= 2) {
-					list.add(new Node(i, j));
+					iceList.add(new Node(i, j));
 				}
 			}
 		}
-
-		if(list.size() > 0) {
+		
+		// 녹일 얼음이 존재하는 경우에만 작업 진행
+		if(iceList.size() > 0) {
 			return true;
 		}
 
@@ -155,20 +136,11 @@ public class Main
 	}
 
 	private static void melt() {
-		for(Node i : list) {
+		for(Node i : iceList) {
 			map[i.x][i.y] = 0;
 		}
 
-		list.clear();
-	}
-
-	private static void print() {
-		for(int i = 0; i < N; i++) {
-			for(int j = 0; j < M; j++) {
-				System.out.print(map[i][j] + " ");
-			}
-			System.out.println();
-		}
+		iceList.clear();
 	}
 
 	private static boolean isIn(int x, int y) {
