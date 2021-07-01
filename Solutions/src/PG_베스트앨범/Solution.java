@@ -21,7 +21,10 @@ class Solution {
 		}
 	}
 
-	public int[] solution(String[] genres, int[] plays) {
+	public static void main(String[] args) {
+		String[] genres = {"classic", "pop", "classic", "classic", "pop"};
+		int[] plays = {500, 600, 150, 800, 2500};
+		
 		HashMap<String, Integer> gHm = new HashMap<String, Integer>();
 		LinkedHashMap<String, List<Song>> sHm = new LinkedHashMap<String, List<Song>>();
 		ArrayList<Integer> list = new ArrayList<Integer>();
@@ -59,6 +62,6 @@ class Solution {
 			answer[i] = list.get(i);
 		}
 
-		return answer;
+		System.out.println(Arrays.toString(answer));
 	}
 }
